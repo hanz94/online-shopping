@@ -1,0 +1,247 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Sedan', serif;
+    height: 100vh;
+    width: 100vw;
+    background: radial-gradient(circle at 35%, rgba(0, 128, 128, 0.8), rgba(0, 128, 128, 0.35));
+    overflow-x: hidden;
+}
+
+.grid-container {
+    height: 100%;
+    display: grid;
+    grid-template-areas: 'header header'
+                        'nav nav'
+                        'main aside'
+                        'footer footer';
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 75px 35px auto 75px;
+    gap: 2px;
+}
+.grid-container > * {
+    background-color: #fff;
+    border: 1px solid white;
+}
+
+.header {
+    grid-area: header;
+    padding: 5px 15px;
+    white-space: nowrap;
+}
+
+.nav {
+    grid-area: nav;
+    display: flex;
+}
+
+.main {
+    grid-area: main;
+}
+
+.aside {
+    grid-area: aside;
+    padding: 15px 25px;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+ul {
+    list-style: none;
+}
+
+.main > h2 {
+    text-align: center;
+    margin: 15px auto;
+}
+
+/* NAVBAR */
+
+.nav > li {
+    flex-basis: 200px;
+}
+.nav > li:nth-child(2) {
+    flex-shrink: 0;
+}
+
+.nav > li > a {
+    display: block;
+    border: 1px solid;
+    height: 33px;
+    line-height: 33px;
+    text-decoration: none;
+    text-align: center;
+    background: radial-gradient(circle at 50%, rgb(107, 156, 156), teal);
+    color: white;
+}
+
+.nav > li:first-child > a {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.nav > li:last-child > a {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.nav > li > a:hover {
+    background: teal;
+}
+
+.nav > li > ul {
+    position: absolute;
+}
+.nav > li > ul > li > a {
+    display: none;
+    border: 1px solid;
+    height: 50px;
+    width: 200px;
+    line-height: 50px;
+    padding: 0px 15px;
+    text-decoration: none;
+    color: white;
+    background: radial-gradient(circle at 50%, rgb(107, 156, 156), teal);
+}
+
+.nav > li > ul > li:last-child > a {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.nav > li > ul > li > a:hover {
+    background: teal;
+}
+
+.nav > li:hover > ul > li > a {
+    display: block;
+}
+
+
+/* PRODUCTS */
+
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.product {
+    cursor: move;
+}
+
+.product > img {
+    width: 250px;
+    height: 250px;
+}
+
+.product-info {
+    text-align: center;
+    padding: 10px;
+}
+
+.product-in-cart {
+    padding: 5px;
+    border-bottom: 1px solid teal;
+}
+
+.product-in-cart:first-child {
+    margin-top: 5px;
+    border-top: 1px solid teal;
+}
+
+/* CART */
+
+#cart {
+    border: 1px solid;
+    min-width: 100px;
+    text-align: center;
+    margin-top: 30px;
+    padding: 4px;
+}
+
+.cart-final-price {
+    margin-top: 20px;
+    margin-right: 5px;
+    text-align: right;
+}
+
+.delete-from-cart, #clear-cart-btn {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* FOOTER */
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+/* RWD */
+
+@media screen and (max-width:570px) {
+    .grid-container {
+        grid-template-areas: 'header' 'nav' 'main' 'aside' 'footer';
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (min-width: 402px) and (max-width: 570px) {
+    .grid-container {
+        grid-template-rows: 75px 70px auto min-content 75px;
+
+    }
+    .nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .nav > li:first-child > a {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 0;
+    }
+    .nav > li:nth-child(2)> a {
+        border-top-right-radius: 8px;
+    }
+    .nav > li:nth-child(3) > a {
+        border-bottom-left-radius: 8px;
+    }
+    .nav > li:last-child > a {
+        border-bottom-right-radius: 8px;
+        border-top-right-radius: 0;
+    }
+    .nav > li > ul > li > a {
+        width: 185px;
+    }
+}
+
+@media screen and (max-width: 401px) {
+    .grid-container {
+        grid-template-rows: 75px 140px auto min-content 75px;
+
+    }
+    .nav {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .nav > li:first-child > a {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 0;
+    }
+    .nav > li:last-child > a {
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-top-right-radius: 0;
+    }
+}

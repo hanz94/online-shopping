@@ -12,6 +12,10 @@ body {
     overflow-x: hidden;
 }
 
+.avoidwrap {
+    display: inline-block;
+}
+
 .grid-container {
     height: 100%;
     display: grid;

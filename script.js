@@ -19,29 +19,10 @@ function countTotalPrice () {
         total += parseFloat($(this).text());
     })
 
-    $('#price-final').text(total.toFixed(2));
+    $('#price-final').text(total.toFixed(2).replace('.' , ','));
 }
 
-$(document).ready(() => {
-
-    $(".product > img").attr("draggable", "false");
-
-    $(".product").each(function () {
-        $(this).hover(hoverOnProduct, hoverOffProduct)
-        .attr('draggable', 'true')
-        .on('dragstart', function (e) {
-            e.originalEvent.dataTransfer.setData("product-name", $(this).children().eq(1).children().eq(0).text());
-            e.originalEvent.dataTransfer.setData("product-price", $(this).children().eq(1).children().eq(1).children().eq(0).text());
-        })
-    })
-
-    $("#cart").on('dragover', function (e) {
-        e.preventDefault();
-    })
-    .on('drop', function (e) {
-        e.preventDefault();
-        var productName = e.originalEvent.dataTransfer.getData("product-name");
-        var productPrice = e.originalEvent.dataTransfer.getData("product-price").replace(',' , '.');
+function addToCart(productName, productPrice) {
         var li = '<li class="product-in-cart"><b>' + productName + '</b> Cena: <b><span class="product-price-cart">' + productPrice + '</span> zł</b><div class="delete-from-cart">Usuń produkt</div></li>';
 
         $('#products-in-cart').append(li);
@@ -72,7 +53,46 @@ $(document).ready(() => {
                 countTotalPrice();
             })
         }
+}
 
+$(document).ready(() => {
 
+    $(".product > img").attr("draggable", "false");
+
+    $(".product").each(function () {
+        $(this).hover(hoverOnProduct, hoverOffProduct)
+        .attr('draggable', 'true')
+        .on('dragstart', function (e) {
+            e.originalEvent.dataTransfer.setData("product-name", $(this).children().eq(1).children().eq(0).text());
+            e.originalEvent.dataTransfer.setData("product-price", $(this).children().eq(1).children().eq(1).children().eq(0).text());
+            $("#dragdrop-hint").css("font-weight", "bold");
+        })
+        .on('dragend', function () {
+            $("#dragdrop-hint").css("font-weight", "normal");
+        })
+        .on('contextmenu', function (e) {
+            e.preventDefault();
+        })
+        .dblclick(function () {
+
+            var productName = $(this).children().eq(1).children().eq(0).text();
+            var productPrice = $(this).children().eq(1).children().eq(1).children().eq(0).text().replace(',' , '.');
+
+            addToCart(productName, productPrice);
+            alert("Dodano do koszyka produkt: " + productName + " Cena: " + productPrice + " zł");
+        })
+    })
+
+    $("#cart").on('dragover', function (e) {
+        e.preventDefault();
+    })
+    .on('drop', function (e) {
+        e.preventDefault();
+        var productName = e.originalEvent.dataTransfer.getData("product-name");
+        var productPrice = e.originalEvent.dataTransfer.getData("product-price").replace(',' , '.');
+        
+        if (productName && productPrice) {
+            addToCart(productName, productPrice);
+        }
     })
 })

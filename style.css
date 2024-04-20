@@ -161,6 +161,21 @@ ul {
     border-top: 1px solid teal;
 }
 
+.promo-announcement {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 0 15px;
+}
+
+#promo-remaining-time {
+    color: red;
+}
+
+.product-previous-price {
+    color: red;
+    text-decoration: line-through;
+}
+
 /* CART */
 
 #cart {

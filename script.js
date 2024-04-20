@@ -46,12 +46,15 @@ $(document).ready(() => {
 
         $('#products-in-cart').append(li);
 
-        $('.delete-from-cart').each(function () {
-            $(this).click(function () {
-                $(this).parent().remove();
-                countTotalPrice();
-            })
-        })
+        $('.delete-from-cart:last').click(function () {
+
+                    if ($(this).parent().is(":only-child")) {
+                        $("#clear-cart-btn").remove();
+                    }
+
+                    $(this).parent().remove();
+                    countTotalPrice();
+                })
 
         countTotalPrice();
 
@@ -72,5 +75,4 @@ $(document).ready(() => {
 
 
     })
-
 })
